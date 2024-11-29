@@ -1,5 +1,9 @@
 # GP TEAM NAO - Human-Robot Interaction
 
+## Commiting
+
+Please lovely people, use branches.
+
 ## LaTeX Documentation
 
 This repository includes LaTeX documentation in the `docs` folder. Follow these steps to contribute:

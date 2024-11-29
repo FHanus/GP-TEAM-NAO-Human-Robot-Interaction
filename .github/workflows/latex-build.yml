@@ -24,5 +24,5 @@ jobs:
       - name: Upload PDF
         uses: actions/upload-artifact@v4
         with:
-          name: GP-TEAM-NAO-Human-Robot-Interaction.pdf
-          path: docs/GP-TEAM-NAO-Human-Robot-Interaction.pdf
+          name: main.pdf
+          path: docs/main.pdf

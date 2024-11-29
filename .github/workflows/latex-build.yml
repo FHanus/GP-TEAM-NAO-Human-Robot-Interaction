@@ -3,10 +3,10 @@ name: Build LaTeX Document
 on:
   push:
     branches:
-      - '**'  
+      - '**'
   pull_request:
     branches:
-      - '**'  
+      - '**'
 
 jobs:
   build:
@@ -21,7 +21,17 @@ jobs:
         with:
           root_file: docs/main.tex
 
-      - name: Upload PDF
+      - name: Commit and Push compiled PDF
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git add docs/main.pdf
+          git commit -m 'Github Workflows : Update compiled main.pdf'
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload PDF as Artifact
         uses: actions/upload-artifact@v4
         with:
           name: main.pdf

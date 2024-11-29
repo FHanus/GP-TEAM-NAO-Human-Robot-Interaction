@@ -1,0 +1,28 @@
+name: Build LaTeX Document
+
+on:
+  push:
+    branches:
+      - '**'  
+  pull_request:
+    branches:
+      - '**'  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX Document
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: docs/main.tex
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: GP-TEAM-NAO-Human-Robot-Interaction.pdf
+          path: docs/GP-TEAM-NAO-Human-Robot-Interaction.pdf

@@ -19,15 +19,19 @@ jobs:
       - name: Compile LaTeX Document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: docs/main.tex
+          root_file: main.tex
+          working_directory: docs
 
-      - name: Commit and Push compiled PDF
+      - name: Add and Commit compiled PDF
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
           git add docs/main.pdf
-          git commit -m 'Github Workflows : Update compiled main.pdf'
-          git push
+          if git commit -m 'GitHub Actions: Update compiled main.pdf'; then
+            git push
+          else
+            echo "No changes to commit"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

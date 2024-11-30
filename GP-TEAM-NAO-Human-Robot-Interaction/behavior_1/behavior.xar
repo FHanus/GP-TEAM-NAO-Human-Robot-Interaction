@@ -34,7 +34,7 @@
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 1" id="2" localization="8" tooltip="" x="466" y="260">
+            <Box name="State 1" id="2" localization="8" tooltip="" x="397" y="300">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -54,7 +54,7 @@
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 4" id="5" localization="8" tooltip="" x="947" y="472">
+            <Box name="State 4" id="5" localization="8" tooltip="" x="917" y="453">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -73,7 +73,7 @@
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 5" id="6" localization="8" tooltip="" x="1161" y="320">
+            <Box name="State 5" id="6" localization="8" tooltip="" x="1099" y="300">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -92,7 +92,7 @@
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 2" id="3" localization="8" tooltip="" x="606" y="472">
+            <Box name="State 2" id="3" localization="8" tooltip="" x="570" y="453">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -112,7 +112,7 @@
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 3" id="4" localization="8" tooltip="" x="797" y="320">
+            <Box name="State 3" id="4" localization="8" tooltip="" x="735" y="300">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>

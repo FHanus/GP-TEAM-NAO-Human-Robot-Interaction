@@ -9,10 +9,9 @@
             <translation type="vanished">Hello</translation>
         </message>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Stick em up everybody, I am robbin this place</source>
             <comment>Text</comment>
-            <translation type="unfinished">Stick em up everybody, I am robbin this place</translation>
+            <translation type="obsolete">Stick em up everybody, I am robbin this place</translation>
         </message>
     </context>
     <context>

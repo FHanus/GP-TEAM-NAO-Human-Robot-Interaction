@@ -30,4 +30,63 @@
             <translation type="vanished">Hello</translation>
         </message>
     </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 0/Animated Say</name>
+        <message>
+            <source>Hello</source>
+            <comment>Text</comment>
+            <translation type="vanished">Hello</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering State 0</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering State 0</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 1/Animated Say</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering State 1</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering State 1</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering State 2</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering State 2</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 3/Animated Say</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering State 3</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering State 3</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 4/Animated Say</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering State 4</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering State 4</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 5/Animated Say</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering State 5</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering State 5</translation>
+        </message>
+    </context>
 </TS>

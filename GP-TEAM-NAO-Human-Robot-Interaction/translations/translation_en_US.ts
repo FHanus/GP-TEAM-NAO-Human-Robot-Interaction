@@ -38,28 +38,44 @@
             <translation type="vanished">Hello</translation>
         </message>
         <message>
+            <source>Entering State 0</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Entering State 0</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 0/Say</name>
+        <message>
+            <source>Hello</source>
+            <comment>Text</comment>
+            <translation type="vanished">Hello</translation>
+        </message>
+        <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 0</source>
             <comment>Text</comment>
             <translation type="unfinished">Entering State 0</translation>
         </message>
+        <message>
+            <source>Entering State 0sadad</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Entering State 0sadad</translation>
+        </message>
     </context>
     <context>
         <name>behavior_1/behavior.xar:/State 1/Animated Say</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 1</source>
             <comment>Text</comment>
-            <translation type="unfinished">Entering State 1</translation>
+            <translation type="obsolete">Entering State 1</translation>
         </message>
     </context>
     <context>
         <name>behavior_1/behavior.xar:/State 1/Animated Say (1)</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Greetings traveller, do you have an appointment?</source>
             <comment>Text</comment>
-            <translation type="unfinished">Greetings traveller, do you have an appointment?</translation>
+            <translation type="obsolete">Greetings traveller, do you have an appointment?</translation>
         </message>
     </context>
     <context>
@@ -131,7 +147,89 @@
         </message>
     </context>
     <context>
+        <name>behavior_1/behavior.xar:/State 1/Say</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering State 1</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering State 1</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 1/Say (1)</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Greetings traveller, do you have an appointment?</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Greetings traveller, do you have an appointment?</translation>
+        </message>
+    </context>
+    <context>
         <name>behavior_1/behavior.xar:/State 2/Animated Say</name>
+        <message>
+            <source>Entering State 2</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Entering State 2</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say (1)</name>
+        <message>
+            <source>Who do you have an apointment with?</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Who do you have an apointment with?</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say (2)</name>
+        <message>
+            <source>sorry, didn't catch that</source>
+            <comment>Text</comment>
+            <translation type="obsolete">sorry, didn't catch that</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say (3)</name>
+        <message>
+            <source>hell yeah I know that dude</source>
+            <comment>Text</comment>
+            <translation type="obsolete">hell yeah I know that dude</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say (4)</name>
+        <message>
+            <source>hell yeah I know that gal</source>
+            <comment>Text</comment>
+            <translation type="obsolete">hell yeah I know that gal</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say (5)</name>
+        <message>
+            <source>may I ask for your confirmation number?</source>
+            <comment>Text</comment>
+            <translation type="obsolete">may I ask for your confirmation number?</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say (6)</name>
+        <message>
+            <source>hell nah</source>
+            <comment>Text</comment>
+            <translation type="obsolete">hell nah</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Animated Say (7)</name>
+        <message>
+            <source>hell yeah</source>
+            <comment>Text</comment>
+            <translation type="obsolete">hell yeah</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Say</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 2</source>
@@ -140,43 +238,7 @@
         </message>
     </context>
     <context>
-        <name>behavior_1/behavior.xar:/State 2/Animated Say (1)</name>
-        <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
-            <source>Who do you have an apointment with?</source>
-            <comment>Text</comment>
-            <translation type="unfinished">Who do you have an apointment with?</translation>
-        </message>
-    </context>
-    <context>
-        <name>behavior_1/behavior.xar:/State 2/Animated Say (2)</name>
-        <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
-            <source>sorry, didn't catch that</source>
-            <comment>Text</comment>
-            <translation type="unfinished">sorry, didn't catch that</translation>
-        </message>
-    </context>
-    <context>
-        <name>behavior_1/behavior.xar:/State 2/Animated Say (3)</name>
-        <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
-            <source>hell yeah I know that dude</source>
-            <comment>Text</comment>
-            <translation type="unfinished">hell yeah I know that dude</translation>
-        </message>
-    </context>
-    <context>
-        <name>behavior_1/behavior.xar:/State 2/Animated Say (4)</name>
-        <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
-            <source>hell yeah I know that gal</source>
-            <comment>Text</comment>
-            <translation type="unfinished">hell yeah I know that gal</translation>
-        </message>
-    </context>
-    <context>
-        <name>behavior_1/behavior.xar:/State 2/Animated Say (5)</name>
+        <name>behavior_1/behavior.xar:/State 2/Say (1)</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>may I ask for your confirmation number?</source>
@@ -185,16 +247,43 @@
         </message>
     </context>
     <context>
-        <name>behavior_1/behavior.xar:/State 2/Animated Say (6)</name>
+        <name>behavior_1/behavior.xar:/State 2/Say (2)</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
-            <source>hell nah</source>
+            <source>Who do you have an apointment with?</source>
             <comment>Text</comment>
-            <translation type="unfinished">hell nah</translation>
+            <translation type="unfinished">Who do you have an apointment with?</translation>
         </message>
     </context>
     <context>
-        <name>behavior_1/behavior.xar:/State 2/Animated Say (7)</name>
+        <name>behavior_1/behavior.xar:/State 2/Say (3)</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>sorry, didn't catch that</source>
+            <comment>Text</comment>
+            <translation type="unfinished">sorry, didn't catch that</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Say (4)</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>hell yeah I know that dude</source>
+            <comment>Text</comment>
+            <translation type="unfinished">hell yeah I know that dude</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Say (5)</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>hell yeah I know that gal</source>
+            <comment>Text</comment>
+            <translation type="unfinished">hell yeah I know that gal</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 2/Say (6)</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>hell yeah</source>
@@ -203,7 +292,32 @@
         </message>
     </context>
     <context>
+        <name>behavior_1/behavior.xar:/State 2/Say (7)</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>hell nah</source>
+            <comment>Text</comment>
+            <translation type="unfinished">hell nah</translation>
+        </message>
+    </context>
+    <context>
         <name>behavior_1/behavior.xar:/State 3/Animated Say</name>
+        <message>
+            <source>Entering State 3</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Entering State 3</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 3/Animated Say (1)</name>
+        <message>
+            <source>Do you want to call a human? Nobody ain't coming</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Do you want to call a human? Nobody ain't coming</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 3/Say</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 3</source>
@@ -212,7 +326,7 @@
         </message>
     </context>
     <context>
-        <name>behavior_1/behavior.xar:/State 3/Animated Say (1)</name>
+        <name>behavior_1/behavior.xar:/State 3/Say (1)</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Do you want to call a human? Nobody ain't coming</source>
@@ -223,6 +337,30 @@
     <context>
         <name>behavior_1/behavior.xar:/State 4/Animated Say</name>
         <message>
+            <source>Entering State 4</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Entering State 4</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 4/Animated Say (1)</name>
+        <message>
+            <source>Email sent (not really)</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Email sent (not really)</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 4/Animated Say (2)</name>
+        <message>
+            <source>Please wait for my coworker to show up</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Please wait for my coworker to show up</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 4/Say</name>
+        <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 4</source>
             <comment>Text</comment>
@@ -230,7 +368,7 @@
         </message>
     </context>
     <context>
-        <name>behavior_1/behavior.xar:/State 4/Animated Say (1)</name>
+        <name>behavior_1/behavior.xar:/State 4/Say (1)</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Email sent (not really)</source>
@@ -239,7 +377,7 @@
         </message>
     </context>
     <context>
-        <name>behavior_1/behavior.xar:/State 4/Animated Say (2)</name>
+        <name>behavior_1/behavior.xar:/State 4/Say (2)</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Please wait for my coworker to show up</source>
@@ -250,6 +388,22 @@
     <context>
         <name>behavior_1/behavior.xar:/State 5/Animated Say</name>
         <message>
+            <source>Entering State 5</source>
+            <comment>Text</comment>
+            <translation type="obsolete">Entering State 5</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 5/Animated Say (1)</name>
+        <message>
+            <source>the dude finally showed up</source>
+            <comment>Text</comment>
+            <translation type="obsolete">the dude finally showed up</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/State 5/Say</name>
+        <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 5</source>
             <comment>Text</comment>
@@ -257,7 +411,7 @@
         </message>
     </context>
     <context>
-        <name>behavior_1/behavior.xar:/State 5/Animated Say (1)</name>
+        <name>behavior_1/behavior.xar:/State 5/Say (1)</name>
         <message>
             <location filename="behavior_1/behavior.xar" line="0"/>
             <source>the dude finally showed up</source>

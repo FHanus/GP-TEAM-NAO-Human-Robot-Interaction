@@ -30,7 +30,7 @@
                 <BehaviorLayer name="behavior_layer1">
                   <BehaviorKeyframe name="keyframe1" index="1">
                     <Diagram>
-                      <Box name="Face Detection" id="1" localization="8" tooltip="Detect people&apos;s face and return the number of detected faces.&#x0A;&#x0A;Note: Detect even faces that are not registered in the faces database (that&#x0A;you can teach him with the Learn Face box)." x="505" y="117">
+                      <Box name="Face Detection" id="1" localization="8" tooltip="Detect people&apos;s face and return the number of detected faces.&#x0A;&#x0A;Note: Detect even faces that are not registered in the faces database (that&#x0A;you can teach him with the Learn Face box)." x="630" y="180">
                         <bitmap>media/images/box/interaction/face.png</bitmap>
                         <script language="4">
                           <content>
@@ -168,8 +168,8 @@ class MyClass(GeneratedClass):
                       </Box>
                       <Link inputowner="1" indexofinput="3" outputowner="1" indexofoutput="6" />
                       <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
-                      <Link inputowner="1" indexofinput="2" outputowner="3" indexofoutput="4" />
                       <Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="6" />
+                      <Link inputowner="1" indexofinput="2" outputowner="3" indexofoutput="4" />
                     </Diagram>
                   </BehaviorKeyframe>
                 </BehaviorLayer>
@@ -191,7 +191,7 @@ class MyClass(GeneratedClass):
                 <BehaviorLayer name="behavior_layer1">
                   <BehaviorKeyframe name="keyframe1" index="1">
                     <Diagram>
-                      <Box name="Speech Reco." id="3" localization="8" tooltip="Recognize a word from a list of words set in the box parameters.&#x0A;&#x0A;V1.1.0&#x0A;" x="609" y="101">
+                      <Box name="Speech Reco." id="3" localization="8" tooltip="Recognize a word from a list of words set in the box parameters.&#x0A;&#x0A;V1.1.0&#x0A;" x="605" y="102">
                         <bitmap>media/images/box/interaction/ear.png</bitmap>
                         <script language="4">
                           <content>
@@ -439,6 +439,7 @@ class MyClass(GeneratedClass):
                       <Link inputowner="5" indexofinput="2" outputowner="0" indexofoutput="2" />
                       <Link inputowner="2" indexofinput="2" outputowner="5" indexofoutput="4" />
                       <Link inputowner="3" indexofinput="2" outputowner="2" indexofoutput="4" />
+                      <Link inputowner="3" indexofinput="3" outputowner="3" indexofoutput="5" />
                     </Diagram>
                   </BehaviorKeyframe>
                 </BehaviorLayer>
@@ -654,7 +655,7 @@ class MyClass(GeneratedClass):
                 <BehaviorLayer name="behavior_layer1">
                   <BehaviorKeyframe name="keyframe1" index="1">
                     <Diagram>
-                      <Box name="Face Detection" id="1" localization="8" tooltip="Detect people&apos;s face and return the number of detected faces.&#x0A;&#x0A;Note: Detect even faces that are not registered in the faces database (that&#x0A;you can teach him with the Learn Face box)." x="340" y="91">
+                      <Box name="Face Detection" id="1" localization="8" tooltip="Detect people&apos;s face and return the number of detected faces.&#x0A;&#x0A;Note: Detect even faces that are not registered in the faces database (that&#x0A;you can teach him with the Learn Face box)." x="376" y="96">
                         <bitmap>media/images/box/interaction/face.png</bitmap>
                         <script language="4">
                           <content>
@@ -790,7 +791,7 @@ class MyClass(GeneratedClass):
                         <Parameter name="Text" inherits_from_parent="0" content_type="5" value="Entering State 5" default_value="" tooltip="The text you want to say. Don&apos;t forget to translate it!" id="7" />
                         <Resource name="Speech" type="Lock" timeout="0" />
                       </Box>
-                      <Box name="Say (1)" id="5" localization="8" tooltip="Say some text. The text can be localized." x="575" y="95">
+                      <Box name="Say (1)" id="5" localization="8" tooltip="Say some text. The text can be localized." x="586" y="94">
                         <bitmap>media/images/box/interaction/say.png</bitmap>
                         <script language="4">
                           <content>
@@ -1121,6 +1122,7 @@ class MyClass(GeneratedClass):
                       <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
                       <Link inputowner="6" indexofinput="2" outputowner="3" indexofoutput="4" />
                       <Link inputowner="4" indexofinput="2" outputowner="6" indexofoutput="4" />
+                      <Link inputowner="4" indexofinput="3" outputowner="4" indexofoutput="5" />
                     </Diagram>
                   </BehaviorKeyframe>
                 </BehaviorLayer>
@@ -1330,7 +1332,7 @@ class MyClass(GeneratedClass):
                         <Parameter name="Step value" inherits_from_parent="0" content_type="1" value="1" default_value="1" min="1" max="500" tooltip="The counter value will be incremented or decremented with this value." id="7" />
                         <Parameter name="Final value" inherits_from_parent="0" content_type="1" value="3" default_value="5" min="0" max="500" tooltip="It is the maximum (if increasing) or the minimum (if decreasing) value of the&#x0A;counter (thus for the last iteration).&#x0A;&#x0A;After this value, if the onStart input is called, the onReinitialized output will be&#x0A;stimulated and the counter will be reinitialized to its Initial value." id="8" />
                       </Box>
-                      <Box name="If" id="7" localization="8" tooltip="Test a condition and stimulate the then or else outputs depending on the boolean&#x0A;value of the condition.&#x0A;The condition can be set in parameters." x="523" y="226">
+                      <Box name="If" id="7" localization="8" tooltip="Test a condition and stimulate the then or else outputs depending on the boolean&#x0A;value of the condition.&#x0A;The condition can be set in parameters." x="540" y="192">
                         <bitmap>media/images/box/box-diagram.png</bitmap>
                         <script language="4">
                           <content>
@@ -1645,7 +1647,7 @@ class MyClass(GeneratedClass):
                         <Parameter name="Text" inherits_from_parent="0" content_type="5" value="may I ask for your confirmation number?" default_value="" tooltip="The text you want to say. Don&apos;t forget to translate it!" id="7" />
                         <Resource name="Speech" type="Lock" timeout="0" />
                       </Box>
-                      <Box name="Say (2)" id="10" localization="8" tooltip="Say some text. The text can be localized." x="669" y="446">
+                      <Box name="Say (2)" id="10" localization="8" tooltip="Say some text. The text can be localized." x="697" y="461">
                         <bitmap>media/images/box/interaction/say.png</bitmap>
                         <script language="4">
                           <content>
@@ -2013,6 +2015,9 @@ class MyClass(GeneratedClass):
                       <Link inputowner="0" indexofinput="5" outputowner="9" indexofoutput="4" />
                       <Link inputowner="14" indexofinput="2" outputowner="12" indexofoutput="3" />
                       <Link inputowner="0" indexofinput="4" outputowner="14" indexofoutput="4" />
+                      <Link inputowner="10" indexofinput="2" outputowner="6" indexofoutput="5" />
+                      <Link inputowner="4" indexofinput="3" outputowner="4" indexofoutput="5" />
+                      <Link inputowner="11" indexofinput="3" outputowner="11" indexofoutput="5" />
                     </Diagram>
                   </BehaviorKeyframe>
                 </BehaviorLayer>

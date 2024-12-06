@@ -23,6 +23,24 @@
         </message>
     </context>
     <context>
+        <name>behavior_1/behavior.xar:/Initialisation/Say</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>learn face failed</source>
+            <comment>Text</comment>
+            <translation type="unfinished">learn face failed</translation>
+        </message>
+    </context>
+    <context>
+        <name>behavior_1/behavior.xar:/Initialisation/Say (1)</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>learn face done</source>
+            <comment>Text</comment>
+            <translation type="unfinished">learn face done</translation>
+        </message>
+    </context>
+    <context>
         <name>behavior_1/behavior.xar:/Say</name>
         <message>
             <source>Hello</source>
@@ -404,19 +422,17 @@
     <context>
         <name>behavior_1/behavior.xar:/State 5/Say</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 5</source>
             <comment>Text</comment>
-            <translation type="unfinished">Entering State 5</translation>
+            <translation type="obsolete">Entering State 5</translation>
         </message>
     </context>
     <context>
         <name>behavior_1/behavior.xar:/State 5/Say (1)</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>the dude finally showed up</source>
             <comment>Text</comment>
-            <translation type="unfinished">the dude finally showed up</translation>
+            <translation type="obsolete">the dude finally showed up</translation>
         </message>
     </context>
 </TS>

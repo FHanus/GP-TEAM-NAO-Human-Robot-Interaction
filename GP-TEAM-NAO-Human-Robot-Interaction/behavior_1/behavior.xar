@@ -15,7 +15,7 @@
       <BehaviorLayer name="behavior_layer1">
         <BehaviorKeyframe name="keyframe1" index="1">
           <Diagram scale="84.0896">
-            <Box name="State 0" id="1" localization="8" tooltip="" x="425" y="64">
+            <Box name="State 0" id="1" localization="8" tooltip="" x="484" y="66">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -30,7 +30,7 @@
                 <BehaviorLayer name="behavior_layer1">
                   <BehaviorKeyframe name="keyframe1" index="1">
                     <Diagram>
-                      <Box name="Face Detection" id="1" localization="8" tooltip="Detect people&apos;s face and return the number of detected faces.&#x0A;&#x0A;Note: Detect even faces that are not registered in the faces database (that&#x0A;you can teach him with the Learn Face box)." x="630" y="180">
+                      <Box name="Face Detection" id="1" localization="8" tooltip="Detect people&apos;s face and return the number of detected faces.&#x0A;&#x0A;Note: Detect even faces that are not registered in the faces database (that&#x0A;you can teach him with the Learn Face box)." x="446" y="160">
                         <bitmap>media/images/box/interaction/face.png</bitmap>
                         <script language="4">
                           <content>
@@ -166,16 +166,165 @@ class MyClass(GeneratedClass):
                         <Parameter name="Text" inherits_from_parent="0" content_type="5" value="Entering State 0" default_value="" tooltip="The text you want to say. Don&apos;t forget to translate it!" id="7" />
                         <Resource name="Speech" type="Lock" timeout="0" />
                       </Box>
+                      <Box name="Test" id="2" localization="8" tooltip="" x="655" y="159">
+                        <bitmap>media/images/box/box-python-script.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[#----------------------------------------------------------------------------------#
+# By Emanuel Nunez and Edward White
+# Edited by Harry Williams wave detection
+# Version 2s
+#----------------------------------------------------------------------------------#
+# Notes
+# For the code to work, the IP address must be set first. This can change everytime the computer is restarted.
+# The IP address can be found by using the command `ipconfig` in the command prompt (Windows), or with `ifconfig` (Linux).
+# The port number is set to 8888 and is the same for the server and client.
+# The private IP address for the computer is used and not the public one
+#----------------------------------------------------------------------------------#
+# Usage
+# This code is used to connect to a server that is running on a computer. The server is listening for a connection from pc
+# 1. Paste this code onto a Python box in Choregraphe
+# 2. Change the output type of onStopped to string
+# 3. Run the server code on the computer
+# 4. Run the code on Choregraphe
+#----------------------------------------------------------------------------------#
+
+
+# Import the necessary modules (yes, even inside of choregraphe)
+import socket
+import random
+import time
+
+# Parameters for the server
+
+host = '192.168.58.242' # = 'FIND YOUR IP ADDRESS' # See above notes
+port = 8888 # No need to change
+
+client_socket = None
+last_hand_status = None  # Variable to keep track of the last hand status
+
+
+class MyClass(GeneratedClass):
+
+    def __init__(self):
+        GeneratedClass.__init__(self)
+
+    def onLoad(self):
+        # Called when "play" is pressed
+        pass
+
+    def onInput_onStart(self):
+
+        ### 1. Define the server
+        self.logger.info("Connecting to socket...")
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # Connect to the server
+        self.logger.info("Connecting to server...")
+        client_socket.connect((host, port))
+
+        ### 2. Send a message
+        important_message = 1 # random.randint(2,6)
+        self.logger.info("Sending Important Val: %s",str(important_message))
+        client_socket.sendall(str(important_message).encode())
+
+        # 2.1 Small delay so the server can keep up
+        time.sleep(0.001)
+
+        ### 3. Receive a message
+        while True:
+            important_answer = client_socket.recv(1024).decode()
+            self.logger.info("Received Message: %s", str(important_answer))
+
+            if important_answer in ["Rude", "Wave"]:
+                self.logger.info("Received Important Answer: %s", str(important_answer))
+
+                # Only send the signal if the status has changed
+                global last_hand_status
+                if important_answer != last_hand_status:
+                    self.logger.info("Hand status changed to: %s", str(important_answer))
+                    self.handStatus(str(important_answer))  # Send the updated status
+                    last_hand_status = important_answer  # Update the last known status
+
+                #break
+
+        pass
+
+    def onInput_onStop(self):
+        if client_socket is not None:
+            client_socket.close()
+        self.onUnload()
+        self.onStopped("Stopped") # activate the output of the box
+
+    def onUnload(self):
+        # Close the socket when stopped
+        if client_socket is not None:
+            client_socket.close()
+        pass]]>
+                          </content>
+                        </script>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                        <Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" />
+                        <Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" />
+                        <Output name="onStopped" type="3" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" />
+                        <Output name="handStatus" type="3" type_size="1" nature="2" inner="0" tooltip="" id="5" />
+                      </Box>
+                      <Box name="Switch Case" id="4" localization="8" tooltip="Test input value and stimulate the output matching to this value. If there is no&#x0A;matching output, the default output (onDefault) is stimulated.&#x0A;&#x0A;You can edit a case by left double-clicking on the line. You can add a&#x0A;case by right clicking on a line and selecting &apos;Insert a row&apos;. You can delete&#x0A;a case by right clicking on a line and selecting &apos;Remove a row&apos;." plugin="dispatcher_plugin" x="852" y="185">
+                        <bitmap>media/images/box/interaction/choice.png</bitmap>
+                        <script language="4">
+                          <content>
+                            <![CDATA[# /!\ Generated content. Do not edit!
+class MyClass(GeneratedClass):
+	def __init__(self):
+		try: # disable autoBind
+		  GeneratedClass.__init__(self, False)
+		except TypeError: # if NAOqi < 1.14
+		  GeneratedClass.__init__( self )
+
+	def onInput_onStart(self, p):
+		p = self.typeConversion(p)
+		if(p == self.typeConversion("Rude")):
+			self.output_1(p)
+		elif(p == self.typeConversion("Wave")):
+			self.output_2(p)
+		else:
+			self.onDefault()
+
+	def typeConversion(self, p):
+		try:
+			p = float(p)
+			pint = int(p)
+			if( p == pint ):
+				p = pint
+		except:
+			p = str(p)
+		return p]]>
+                          </content>
+                        </script>
+                        <pluginContent>
+                          <keywords>
+                            <keyword>&quot;Rude&quot;</keyword>
+                            <keyword>&quot;Wave&quot;</keyword>
+                            <keyword></keyword>
+                          </keywords>
+                        </pluginContent>
+                        <Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" />
+                        <Input name="onStart" type="0" type_size="1" nature="1" inner="0" tooltip="Value to test." id="2" />
+                        <Output name="onDefault" type="1" type_size="1" nature="2" inner="0" tooltip="If the input value does not match any value set on the box." id="3" />
+                        <Output name="output_1" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="4" />
+                        <Output name="output_2" type="0" type_size="1" nature="2" inner="0" tooltip="This IO has been automatically added by box. Read box tooltip for more information." id="5" />
+                      </Box>
                       <Link inputowner="1" indexofinput="3" outputowner="1" indexofoutput="6" />
                       <Link inputowner="3" indexofinput="2" outputowner="0" indexofoutput="2" />
-                      <Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="6" />
                       <Link inputowner="1" indexofinput="2" outputowner="3" indexofoutput="4" />
+                      <Link inputowner="2" indexofinput="2" outputowner="1" indexofoutput="6" />
+                      <Link inputowner="4" indexofinput="2" outputowner="2" indexofoutput="5" />
+                      <Link inputowner="0" indexofinput="4" outputowner="4" indexofoutput="5" />
                     </Diagram>
                   </BehaviorKeyframe>
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 1" id="2" localization="8" tooltip="" x="559" y="302">
+            <Box name="State 1" id="2" localization="8" tooltip="" x="630" y="296">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -445,7 +594,7 @@ class MyClass(GeneratedClass):
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 4" id="5" localization="8" tooltip="" x="1079" y="461">
+            <Box name="State 4" id="5" localization="8" tooltip="" x="1166" y="457">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -573,7 +722,7 @@ class MyClass(GeneratedClass):
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 5" id="6" localization="8" tooltip="" x="1261" y="302">
+            <Box name="State 5" id="6" localization="8" tooltip="" x="1332" y="296">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -1046,7 +1195,7 @@ class MyClass(GeneratedClass):
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 3" id="4" localization="8" tooltip="" x="897" y="302">
+            <Box name="State 3" id="4" localization="8" tooltip="" x="968" y="296">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -1598,7 +1747,7 @@ class MyClass(GeneratedClass):
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="State 2" id="3" localization="8" tooltip="" x="732" y="455">
+            <Box name="State 2" id="3" localization="8" tooltip="" x="804" y="457">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>
@@ -2375,7 +2524,7 @@ class MyClass(GeneratedClass):
                 </BehaviorLayer>
               </Timeline>
             </Box>
-            <Box name="Initialisation" id="7" localization="8" tooltip="" x="124" y="43">
+            <Box name="Initialisation" id="7" localization="8" tooltip="" x="200" y="62">
               <bitmap>media/images/box/box-diagram.png</bitmap>
               <script language="4">
                 <content>

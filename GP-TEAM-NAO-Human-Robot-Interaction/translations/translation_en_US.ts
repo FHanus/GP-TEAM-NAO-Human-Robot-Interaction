@@ -41,6 +41,15 @@
         </message>
     </context>
     <context>
+        <name>behavior_1/behavior.xar:/Initialisation/Say (2)</name>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Entering Initialisation</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Entering Initialisation</translation>
+        </message>
+    </context>
+    <context>
         <name>behavior_1/behavior.xar:/Say</name>
         <message>
             <source>Hello</source>
@@ -429,6 +438,12 @@
             <source>Email sent (not really)</source>
             <comment>Text</comment>
             <translation type="obsolete">Email sent (not really)</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>I have sent an email to the member of staff.</source>
+            <comment>Text</comment>
+            <translation type="unfinished">I have sent an email to the member of staff.</translation>
         </message>
     </context>
     <context>

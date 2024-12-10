@@ -324,10 +324,9 @@
             <translation type="obsolete">Entering State 3</translation>
         </message>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Who are you here to see</source>
             <comment>Text</comment>
-            <translation type="unfinished">Who are you here to see</translation>
+            <translation type="obsolete">Who are you here to see</translation>
         </message>
     </context>
     <context>
@@ -338,10 +337,9 @@
             <translation type="obsolete">Do you want to call a human? Nobody ain't coming</translation>
         </message>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Please say again. </source>
             <comment>Text</comment>
-            <translation type="unfinished">Please say again. </translation>
+            <translation type="obsolete">Please say again. </translation>
         </message>
     </context>
     <context>
@@ -399,9 +397,10 @@
     <context>
         <name>behavior_1/behavior.xar:/State 4/Say</name>
         <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 4</source>
             <comment>Text</comment>
-            <translation type="obsolete">Entering State 4</translation>
+            <translation type="unfinished">Entering State 4</translation>
         </message>
     </context>
     <context>
@@ -439,9 +438,10 @@
     <context>
         <name>behavior_1/behavior.xar:/State 5/Say</name>
         <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Entering State 5</source>
             <comment>Text</comment>
-            <translation type="obsolete">Entering State 5</translation>
+            <translation type="unfinished">Entering State 5</translation>
         </message>
     </context>
     <context>

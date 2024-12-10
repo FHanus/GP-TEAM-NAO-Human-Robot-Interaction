@@ -176,10 +176,15 @@
     <context>
         <name>behavior_1/behavior.xar:/State 1/Say (1)</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Greetings traveller, do you have an appointment?</source>
             <comment>Text</comment>
-            <translation type="unfinished">Greetings traveller, do you have an appointment?</translation>
+            <translation type="obsolete">Greetings traveller, do you have an appointment?</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Hi, my name is Gordon, do you have an appointment?</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Hi, my name is Gordon, do you have an appointment?</translation>
         </message>
     </context>
     <context>
@@ -301,19 +306,29 @@
     <context>
         <name>behavior_1/behavior.xar:/State 2/Say (6)</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>hell yeah</source>
             <comment>Text</comment>
-            <translation type="unfinished">hell yeah</translation>
+            <translation type="obsolete">hell yeah</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>I have got you</source>
+            <comment>Text</comment>
+            <translation type="unfinished">I have got you</translation>
         </message>
     </context>
     <context>
         <name>behavior_1/behavior.xar:/State 2/Say (7)</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>hell nah</source>
             <comment>Text</comment>
-            <translation type="unfinished">hell nah</translation>
+            <translation type="obsolete">hell nah</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>That is not in our database</source>
+            <comment>Text</comment>
+            <translation type="unfinished">That is not in our database</translation>
         </message>
     </context>
     <context>
@@ -354,10 +369,15 @@
     <context>
         <name>behavior_1/behavior.xar:/State 3/Say (1)</name>
         <message>
-            <location filename="behavior_1/behavior.xar" line="0"/>
             <source>Do you want to call a human? Nobody ain't coming</source>
             <comment>Text</comment>
-            <translation type="unfinished">Do you want to call a human? Nobody ain't coming</translation>
+            <translation type="obsolete">Do you want to call a human? Nobody ain't coming</translation>
+        </message>
+        <message>
+            <location filename="behavior_1/behavior.xar" line="0"/>
+            <source>Do you want to call a human?</source>
+            <comment>Text</comment>
+            <translation type="unfinished">Do you want to call a human?</translation>
         </message>
     </context>
     <context>

@@ -10,6 +10,10 @@ import mediapipe as mp
 import socket
 from threading import Thread, Lock
 import time
+import socket
+import nltk
+nltk.download('vader_lexicon')
+from nltk.sentiment import SentimentIntensityAnalyzer
 
 # Define the server (computer) details
 host = '0.0.0.0'    # Localhost
@@ -29,6 +33,7 @@ class SimpleServer:
     def start_server(self):
         # Create a socket object
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         # Bind the socket to the address and port
         self.server_socket.bind((self.host, self.port))
         # Listen for incoming connections
@@ -104,6 +109,9 @@ def detectWave():
                                 print("Rude")
                                 signal_thread = Thread(target=server.send_signal, args=("Rude",))
                                 signal_thread.start()
+                                
+                                
+
                         else:
                             debounce_wave += 1
                             debounce_rude = 0
@@ -112,8 +120,8 @@ def detectWave():
                                 print("Wave")
                                 signal_thread = Thread(target=server.send_signal, args=("Wave",))
                                 signal_thread.start()
-                    
-
+                                
+                                
 
         # Step 4: Display output
         cv2.imshow('Hand Detection', cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
@@ -123,12 +131,42 @@ def detectWave():
     # At end, close it
     video_capture.release()
 
+def handle_client():
+        text = server.client_socket.recv(1024).decode('utf-8')
+        print(text)
+        # Initialize SentimentIntensityAnalyzer
+        sia = SentimentIntensityAnalyzer()
 
+        # Split the text by newline characters
+        sentiment_scores = {"compound": 0} 
+        # Iterate over each line and analyze sentiment
+
+        if text.strip():  # Check if the text is not empty
+            # Get sentiment scores
+            sentiment_scores = sia.polarity_scores(text)
+        
+            # General sentiment, return output
+            if sentiment_scores['compound'] >= 0.05:
+                output = "Positive"
+                signal_thread = Thread(target=server.send_signal, args=(output,))
+                signal_thread.start()
+                print(f"Sending sentiment: {output}")
+            elif sentiment_scores['compound'] <= -0.05:
+                output = "Negative"
+                signal_thread = Thread(target=server.send_signal, args=(output,))
+                signal_thread.start()
+                print(f"Sending sentiment: {output}")
+            else:
+                output = "Neutral"
+                signal_thread = Thread(target=server.send_signal, args=(output,))
+                signal_thread.start()
+                print(f"Sending sentiment: {output}")
+        
+                    
 def image_processing(image):
     # Step 2.1: Convert the BGR image to RGB.
     image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
     return image
-
 
 if __name__ == "__main__":
      # First, create the server socket in a separate thread
@@ -137,5 +175,12 @@ if __name__ == "__main__":
     print("Server created.")
     while server.client_socket is None:
         time.sleep(1)  # Wait for the client to connect
-    while True:
-        detectWave()
+    state = 1
+    while state == 1:
+        state = detectWave()
+    while server.client_socket is None:
+        time.sleep(1)  # Wait for the client to connect
+    while state == 2:
+        text = server.client_socket.recv(1024).decode('utf-8')
+        print(state)
+        handle_client()

@@ -64,9 +64,35 @@ refuse to follow challenging orders from a robot if factors such as perceived in
 \section{Literature Review}
 
 TBD
+
 \section{Design and Methodology}
 
-TBD
+The system design for our NAO robot receptionist was guided by two goals: providing a seamless user experience and supporting medical
+staff through reliable automated interactions. Drawing on Sutherland et al.’s work \cite{Sutherland2019}, which established the feasibility of a
+medical robot receptionist, we sought to move beyond Wizard-of-Oz methods by having NAO autonomously recognise faces, detect gestures, and facilitate 
+patient check-in. Additionally, evidence from Rae et al. \cite{Rae2013} encouraged us to position the robot at a height that aligns with typical eye 
+level, increasing the robot’s perceived authority and engagement. Key interaction modes include speech (British English), gesture recognition, and 
+email alerts, which were selected to replicate the essential tasks usually performed by human receptionists.
+
+\begin{figure*}
+        \centering
+        \includegraphics[width=.6\linewidth]{states.jpg}
+        \caption{Different States and their Connections}
+        \label{Different states}
+\end{figure*}
+
+As shown in the figure~\ref{Different states}, our approach centred on a modular pipeline, implemented using Aldebaran’s Choregraphe software and Python-based scripts. 
+First, the robot engages 
+in face detection (State 0), aided by an external camera if necessary. Should an individual approach or wave (State 1), detected via Mediapipe Python script,
+the system transitions to a conversation phase (State 2), where NAO uses inbuilt speech recognition to guide the patient through check-in queries.
+To confirm arrival, an email is automatically sent to the relevant staff member (State 3), ensuring prompt notification. 
+Finally, a simple feedback process (State 4) invites users to rate their experience with the robot, capturing qualitative data for further improvements.
+This staged flow was developed to make sure that, at each step, NAO’s actions could be isolated and tested independently before being integrated into
+the overall receptionist framework. Due to potential connectivity restrictions, such as network blocks on Simple Mail Transfer Protocol (SMTP), contingency 
+plans were introduced. In alignment with findings by Bistolfi \cite{Bistolfi2022}, allowing for quick human intervention in case of failure was essential 
+to maintain trust and minimise disruptions. By structuring each component in a self-contained manner, we aimed to achieve higher system reliability, 
+mitigate user frustration, and conform to healthcare settings where uninterrupted service is imperative.
+
 
 \section{Testing and Results}
 

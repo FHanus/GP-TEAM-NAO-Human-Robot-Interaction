@@ -68,12 +68,11 @@ TBD
 
 \section{Design and Methodology}
 
-The system design for our NAO robot receptionist was guided by two goals: providing a seamless user experience and supporting medical
-staff through reliable automated interactions. Drawing on Sutherland et al.’s work \cite{Sutherland2019}, which established the feasibility of a
-medical robot receptionist, we sought to move beyond Wizard-of-Oz methods by having NAO autonomously recognise faces, detect gestures, and facilitate 
-patient check-in. Additionally, evidence from Rae et al. \cite{Rae2013} encouraged us to position the robot at a height that aligns with typical eye 
-level, increasing the robot’s perceived authority and engagement. Key interaction modes include speech (British English), gesture recognition, and 
-email alerts, which were selected to replicate the essential tasks usually performed by human receptionists.
+Our NAO-based receptionist system was designed with two main objectives:
+\begin{enumerate}
+        \item Streamlining patient check-in and
+        \item Maintaining user trust and engagement.
+\end{enumerate}
 
 \begin{figure*}
         \centering
@@ -82,17 +81,29 @@ email alerts, which were selected to replicate the essential tasks usually perfo
         \label{Different states}
 \end{figure*}
 
-As shown in the figure~\ref{Different states}, our approach centred on a modular pipeline, implemented using Aldebaran’s Choregraphe software and Python-based scripts. 
-First, the robot engages 
-in face detection (State 0), aided by an external camera if necessary. Should an individual approach or wave (State 1), detected via Mediapipe Python script,
-the system transitions to a conversation phase (State 2), where NAO uses inbuilt speech recognition to guide the patient through check-in queries.
-To confirm arrival, an email is automatically sent to the relevant staff member (State 3), ensuring prompt notification. 
-Finally, a simple feedback process (State 4) invites users to rate their experience with the robot, capturing qualitative data for further improvements.
-This staged flow was developed to make sure that, at each step, NAO’s actions could be isolated and tested independently before being integrated into
-the overall receptionist framework. Due to potential connectivity restrictions, such as network blocks on Simple Mail Transfer Protocol (SMTP), contingency 
-plans were introduced. In alignment with findings by Bistolfi \cite{Bistolfi2022}, allowing for quick human intervention in case of failure was essential 
-to maintain trust and minimise disruptions. By structuring each component in a self-contained manner, we aimed to achieve higher system reliability, 
-mitigate user frustration, and conform to healthcare settings where uninterrupted service is imperative.
+\subsection{Overview of System States} Figure~\ref{Different states} illustrates our finite state machine, implemented
+using Aldebaran’s Choregraphe and Python scripts:
+
+\begin{enumerate} \item \textbf{Face Detection (State 0):} NAO continuously scans for faces. If a recognised face is detected, it waits for user input. This ensures worker's face(s) are stored in the form of initialisation.
+        \item \textbf{Wave Detection (State 1):} A Mediapipe-based script running in Python identifies a waving hand signal. Upon detection, the system transitions to direct interaction mode.
+        \item \textbf{Check-in Interaction (State 2):} NAO initiates a spoken dialogue to ask for appointment details. It uses inbuilt speech recognition configured for British English.
+        \item \textbf{Email Notification (State 3):} On successful check-in, NAO sends an automated email to the relevant staff member. To circumvent network restrictions on SMTP, local testing used a laptop-based hotspot, with a fallback plan of staff intervention.
+        \item \textbf{Feedback Collection (State 4):} NAO requests a brief rating from the user, storing any comments for later review.
+\end{enumerate}
+
+\subsection{Hardware and Software Setup} We ran Choregraphe on a laptop that communicates with the NAO robot over Wi-Fi.
+For gestures, a laptop-mounted camera and a Python-based Mediapipe module detect and interpret waving motions.
+Whenever network blocks occurred (e.g.\ institutional firewalls), we redirected connections through a personal hotspot to ensure uninterrupted email functionality.
+
+\subsection{Design Rationale} We opted for a height-aligned placement of NAO to improve authority and user engagement,
+as recommended by Rae et al.\cite{Rae2013}. This also aligns with Sutherland et al.\cite{Sutherland2019}, who showed the benefits of
+a robotic receptionist in clinical settings. Our approach expands on their Wizard-of-Oz study by allowing NAO to generate all behaviours without remote operators.
+
+\subsection{Contingency Measures} In practice, user trust decreases sharply when robots show consistent errors, as reported by Bistolfi~\cite{Bistolfi2022}.
+Therefore, we embedded clear fallback steps:
+\begin{itemize}
+        \item If the reservation checkin fails, staff are alerted via an email.
+\end{itemize}
 
 
 \section{Testing and Results}

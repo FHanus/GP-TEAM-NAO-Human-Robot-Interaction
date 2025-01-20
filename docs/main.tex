@@ -198,7 +198,30 @@ missed, directing the robot towards a more appropriate response.
 While these improvements would improve the technology, extensive user testing (especially within the intended medical space) is the 
 best way to understand the system's shortcomings and improve accordingly.
 
+
 \section{Discussion}
+In general, HRI is an element that should be considered early in the design stage, allowing engineers to understand limitations of the system and manage user expectation.
+\subsection{Plan vs implementation}
+\textbf{Discuss how the final produced HRI solution differs from the initially presented state machine and dialogue. Include a discussion about the reasons for the differences.}
+
+Compared to the initial design, there were a few parts added and some not included in the final solution produced. Added elements including gesture detection and NLP for a better user experience. The gesture detection using opencv and mediapipe libraries to detect hand and landmarks, classifying the user's gesture. As co-speech gesture, it provides additional or reiterate information of the conversation to robot. In this application, wave detected indicates conversation starting or ending with users. Waving is an emblem gesture with a defined meaning of "Hello" or "Goodbye", that can help getting attention in human to human conversation, and usually the another person wave back. So it was decided that waving used as a key point of conversation starting in the robot and wave back as well. Making the interaction more realistic.
+
+NLP allows the robot to analyze more complex texts, such as analyzing user feedback in this case. Those were not considered in the initial design, but there were extra time for implementation when initial design were done.
+
+In the final implementation of this project, there were a few parts of the design plan not implemented at the end. For example, creating face recognition library, external speech recognition for complex input, and integration of NLP.
+
+\subsection{Limitation}
+\textbf{Please discuss in which ways your HRI solution is limited and what you would do to improve on these limitations.}
+The wifi at UWE, Eudoroam blocked Simple Mail Transfer Protocol (SMTP). The problem was solved with hotspotting to finish the emailing part from NAO. 
+One limitation in our solution is the unstable face recognition. The face learning function which creates the library and recognition of face in front of the robot to the library were unstable. A possible solution would be using external camera like on laptop, and use other algorithm like YOLO for live video face detection and recognition. That would provide more stable face recognition on identifying staff, however was not implemented because of the time limit. 
+
+Animation of NAO was done with Python programmed box in Choregraphe, but motion while sitting did not work. 
+
+NLP was implemented with Python code but not integrated with NAO, and because of the complex sentence, it was hard for NAO to recognize and transfer to text. That could be solved if an external microphone is used for voice input, and with algorithms like google speech to text will give more accurate results on input for NLP. 
+
+One other limitation is the long duration of connecting to robot on the software Choregraphe which is a software limitation with these NAO robot, programming in Python with server could be a solution.
+\subsection{Feedback for module development}
+
 
 \subsection{Project Limitations}
 

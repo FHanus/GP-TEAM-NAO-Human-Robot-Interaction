@@ -68,7 +68,7 @@ TBD
 
 \section{Design and Methodology}
 
-Our NAO-based receptionist system was designed with two main objectives:
+The NAO-based receptionist system was designed with two main objectives:
 \begin{enumerate}
         \item Streamlining patient check-in and
         \item Maintaining user trust and engagement.
@@ -84,31 +84,85 @@ Our NAO-based receptionist system was designed with two main objectives:
 \subsection{Overview of System States} Figure~\ref{Different states} illustrates our finite state machine, implemented
 using Aldebaran’s Choregraphe and Python scripts:
 
-\begin{enumerate} \item \textbf{Face Detection (State 0):} NAO continuously scans for faces. If a recognised face is detected, it waits for user input. This ensures worker's face(s) are stored in the form of initialisation.
-        \item \textbf{Wave Detection (State 1):} A Mediapipe-based script running in Python identifies a waving hand signal. Upon detection, the system transitions to direct interaction mode.
-        \item \textbf{Check-in Interaction (State 2):} NAO initiates a spoken dialogue to ask for appointment details. It uses inbuilt speech recognition configured for British English.
-        \item \textbf{Email Notification (State 3):} On successful check-in, NAO sends an automated email to the relevant staff member. To circumvent network restrictions on SMTP, local testing used a laptop-based hotspot, with a fallback plan of staff intervention.
-        \item \textbf{Feedback Collection (State 4):} NAO requests a brief rating from the user, storing any comments for later review.
+\begin{enumerate} \item \textbf{Face Detection (State 0):} NAO scans staff members’ faces and stores in database. After completion, state 1 is triggered.
+        \item \textbf{Wave Detection (State 1):} A MediaPipe-based script running in Python continuously scans for a waving hand signal. Upon detection, the system triggers state 2. 
+        \item \textbf{Verbal Interaction (State 2):} NAO initiates a spoken dialogue to ask for appointment details. It uses inbuilt speech recognition configured for British English. If the user does not wish to proceed, the system will revert to state 1, ready for the next user. If the user successfully checks in, or they wish to speak to staff, state 3 will be triggered.
+        \item \textbf{Email Notification (State 3):} NAO sends an automated email to the relevant staff member. To circumvent network restrictions on SMTP, local testing used a laptop-based hotspot.
+        \item \textbf{Feedback Collection (State 4):} NAO requests a brief rating from the user, storing any comments for later review. Once completed, the system returns to state 1.
 \end{enumerate}
 
-\subsection{Hardware and Software Setup} We ran Choregraphe on a laptop that communicates with the NAO robot over Wi-Fi.
-For gestures, a laptop-mounted camera and a Python-based Mediapipe module detect and interpret waving motions.
-Whenever network blocks occurred (e.g.\ institutional firewalls), we redirected connections through a personal hotspot to ensure uninterrupted email functionality.
+\subsection{Hardware and Software Setup} Choregraphe runs on a laptop that communicates with the NAO robot over Wi-Fi.
+For gestures, a laptop-mounted camera and a Python-based MediaPipe module detect and interpret waving motions.
+When network blocks occurred (e.g.\ institutional firewalls), connections were redirected through a personal hotspot to ensure uninterrupted email functionality.
+
+\subsection{Dialogue Capabilities} Choregraphe boxes were primarily used to facilitate dialogue capabilities. Edited \textit{Say} boxes were added to Choregraphe’s \textit{Flow Diagram Panel}, and contained sentences that NAO would say to interact with the user via in-built text-to-speech (TTS) technology. As communication between boxes is event-based, \textit{Say} boxes are triggered onStart and I/O set as “bang”. Naturally, NAO asks the user questions to locate their appointment; therefore, \textit{Say} boxes are primarily followed by Speech Reco. boxes to understand the user’s verbal response. These use an in-built speech-to-text (STT) technology. Each \textit{Speech Reco.} box contains a word list as part of its parameters, these are now words that NAO recognises, and, by utilising a switch case, can respond accordingly to what the user said. \textit{Speech Reco.} boxes have input set to “bang”, output on word recognition set to “string”, and confidence threshold was adjusted to 45% (figure determined during testing). If the confidence threshold was not met, NAO does not recognise the word and will explore contingencies.
+
+A Natural Language Processing (NLP) sentiment detection script was designed but could not be implemented due to integration issues with the NAO robot. This script would have been used for both user inputs and NAO’s verbal outputs. 
+
+\subsection{Person Tracking}
+Person tracking capabilities of the NAO receptionist included:
+\begin{enumerate}
+        \item Face detection and
+        \item Wave detection
+\end{enumerate}
+
+Face detection was used to detect staff members’ faces and stored on the server database. This facilitated NAO’s capability of announcing the staff’s arrival when they greet the user. Face detection was created using MediaPipe.
+
+Wave detection was implemented to trigger NAO’s verbal interaction with the user. A wave was chosen as a common emblematic non-verbal communication gesture and prevents NAO being active by passersby.  To prompt the user, a sign was placed in front of NAO saying, ‘Wave to speak with the receptionist.’ Wave detection used MediaPipe, specifically using the hand landmark and gesture classification models. 
+
+\subsection{Email Integration} To meet the requirement of the NAO robot being used as a receptionist, a simple email script was designed to run locally on the NAO hardware using a simple mail transfer protocol (SMTP).
+
+\subsection{Code Overview} During the design process, the code was written in Visual Studio (VS) with version control via GitHub, facilitating unit testing in a controlled environment. Once the code was verified and validated, it was integrated into Choregraphe nodes and further tested on a virtual NAO. 
+
+The code was separated across a server and a client. More computationally expensive functions run on the server, whereas simple functions, critical to core functionality, run on NAO. These communicated via a socket framework.
+
+Running gesture recognition and sentiment detection on a server allows deep learning algorithms to benefit from the computing power of the server. This is critical for successful real-time interactions. The server also utilises frameworks that do not integrate well with Python 2 (e.g.  MediaPipe and VADER). Additionally, having these features hosted on a server, multiple NAO robots can utilise these tools and could be extremely useful for clients wishing to purchase and use multiple reception robots.
+
+The remaining code, including TTS, STT, and email functions, runs locally on NAO. It uses minimal computing power and can easily be run in real-time on NAO’s hardware.
+
+\subsection{GitHub} A shared GitHub housed README files, NAO scripts, and LaTeX documentation for report writing. Branches broke down project tasks and features, whilst version control assisted with project collaboration and testing. See Appendix for supporting GitHub documentation.
 
 \subsection{Design Rationale} We opted for a height-aligned placement of NAO to improve authority and user engagement,
 as recommended by Rae et al.\cite{Rae2013}. This also aligns with Sutherland et al.\cite{Sutherland2019}, who showed the benefits of
-a robotic receptionist in clinical settings. Our approach expands on their Wizard-of-Oz study by allowing NAO to generate all behaviours without remote operators.
+a robotic receptionist in clinical settings. This project expands on their Wizard-of-Oz study by allowing NAO to generate all behaviours without remote operators.
 
 \subsection{Contingency Measures} In practice, user trust decreases sharply when robots show consistent errors, as reported by Bistolfi~\cite{Bistolfi2022}.
-Therefore, we embedded clear fallback steps:
+Therefore, clear fallback steps were embedded:
 \begin{itemize}
-        \item If the reservation checkin fails, staff are alerted via an email.
+        \item If the appointment check-in fails, staff are alerted via email.
 \end{itemize}
 
+\subsection{Contingency Measures} Following a risk assessment, a highlighted safety concern of NAO are the ‘pinch points’ during robotic movements. To avoid physical contact, NAO will be placed behind a desk and out of reach from the user.
 
 \section{Testing and Results}
 
 TBD
+
+\section{HRI Dialogue Example}
+
+\textit{[User wave detected]}
+Gordon: Hi! My name is Gordon. Do you have an appointment?
+User: Yes, I do.
+Gordon: Who do you have an appointment with?
+User: [unrecognisable mumbling]
+Gordon: Sorry, didn't catch that.
+User: I have an appointment with Bob.
+\textit{[Gordon checks the database for an employee called Bob. Bob doesn’t exist.]}
+Gordon: May I ask for your confirmation number?
+User: My appointment number is 4.
+\textit{[Gordon checks the database for a matching confirmation number. Confirmation number exists.]}
+Gordon: I have got you.
+\textit{[Gordon sends staff member an email]}
+Gordon: I have sent an email to the member of staff. Someone will be with you shortly.  In the meantime, how would you rate your experience with me on a scale of 1 to 10?
+User: 10! Your service was fantastic.
+Gordon: Your feedback is greatly appreciated, thank you. 
+\textit{[Gordon detects the staff member walking in]}
+Gordon: Our staff is here to help you. Bye.
+
+Scenario: A patient checks in with NAO. The user has an appointment with a staff member, however, that staff member does not exist, NAO prompts the user for their confirmation number. NAO locates the appointment and sends an email to the correct employee. Whilst the user is waiting, NAO asks for user feedback. NAO detects the staff member and announces their arrival.
+
+This scripted scenario highlights two particular failure points anticipated in the system design. Firstly, NAO cannot recognise the user’s first response detailing who they have an appointment with. Secondly, the user mistakenly provides the name of someone who does not work there.  The system is designed to allow a maximum of two attempts to find the employee, then the user is prompted to provide a confirmation number. If the appointment is located, the script follows as above. Alternatively, if the appointment cannot be found, NAO can follow an expanded script asking if the user would like to speak with a human and emails the manager to assist. NAO can determine these failure points as the Python script contains a predetermined list of the employees. NAO listens for these predetermined words. If the user fails to correctly articulate an employee’s name from the predetermined list, NAO will then proceed with the contingencies put in place as part of the system design. To maintain a positive user experience, the user will only be prompted to repeat themselves once, beyond this, human intervention will be offered to avoid user frustrations with the robot. 
+
 
 \section{Future Work}Facial recognition was planned and developed but was not able to be featured in the final testing due to 
 technical difficulties. Future work on this project would include and expand upon this capability as recognising (and potentially 

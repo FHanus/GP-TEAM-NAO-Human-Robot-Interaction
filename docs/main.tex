@@ -91,15 +91,18 @@ Assumptions:
 \subsection{State Machine Description}
 
 \subsubsection{System Start}
-Entry Condition:
+\paragraph{Entry Condition:}
+\mbox{}\\
 The robot/system is powered on or reset. This is the initial state.
-Actions:
+
+\paragraph{Actions:}
 \begin{itemize}
   \item Immediately triggers \textbf{Face Detection}, looking for any faces in view.
   \item Checks whether the \emph{number of faces} has changed (i.e., a new face appears).
   \item If a new face is detected, the system attempts to \emph{Learn face (employee)}. If learning is successful, it proceeds with a \emph{Success message}; if unsuccessful, it gives a \emph{Failure message}.
 \end{itemize}
-Transitions:
+
+\paragraph{Transitions:}
 \begin{itemize}
   \item Both the \emph{success} and \emph{failure} learning branches eventually converge and transition to \textbf{State 0}. This is in order to prevent getting stuck due to NAO's technical problems.
 \end{itemize}
@@ -112,14 +115,17 @@ Transitions:
 \end{figure}
 
 \subsubsection{State 0}
-Entry Condition:
+\paragraph{Entry Condition:}
+\mbox{}\\
 The machine enters this state after finishing the initial face-detection/learning process.
-Actions:
+
+\paragraph{Actions:}
 \begin{itemize}
   \item Continuously \emph{reads webcam input}.
   \item Monitors for a \emph{wave} via MediaPipe.
 \end{itemize}
-Transitions:
+
+\paragraph{Transitions:}
 \begin{itemize}
   \item If a wave is detected, perform \emph{Action: Wave back} and move to \textbf{State 1}.
   \item If no wave is detected, remain in \textbf{State 0} and continue monitoring.
@@ -133,15 +139,18 @@ Transitions:
 \end{figure}
 
 \subsubsection{State 1}
-Entry Condition:
+\paragraph{Entry Condition:}
+\mbox{}\\
 A wave has been detected in \textbf{State 0}, triggering the move here (``Client Appointment Initialisation'').
-Actions:
+
+\paragraph{Actions:}
 \begin{itemize}
   \item Asks the user if they have an appointment.
   \item Performs \emph{Speech Recognition} to capture their answer.
   \item Checks if the answer is ``yes'' or ``no''.
 \end{itemize}
-Transitions:
+
+\paragraph{Transitions:}
 \begin{itemize}
   \item If \emph{yes}, transition to \textbf{State 2} (handle appointment details).
   \item If \emph{no}, transition to \textbf{State 3} (offer human assistance).
@@ -155,15 +164,18 @@ Transitions:
 \end{figure}
 
 \subsubsection{State 2}
-Entry Condition:
+\paragraph{Entry Condition:}
+\mbox{}\\
 User has indicated they do have an appointment.
-Actions:
+
+\paragraph{Actions:}
 \begin{itemize}
   \item Prompts for the name of the staff member or the confirmation number.
   \item Uses \emph{Speech Recognition}, then checks if the provided information is found in the database.
   \item Keeps track of the number of failed attempts.
 \end{itemize}
-Transitions:
+
+\paragraph{Transitions:}
 \begin{itemize}
   \item If the name or confirmation number is valid, \emph{nod head} and transition to \textbf{State 4} (staff notification).
   \item If it is invalid, increment the failure count. If failures exceed 2, \emph{shake head} and move to \textbf{State 3}.
@@ -177,14 +189,17 @@ Transitions:
 \end{figure}
 
 \subsubsection{State 3}
-Entry Condition:
+\paragraph{Entry Condition:}
+\mbox{}\\
 Either the user said they have no appointment (from State 1) or they exceeded failures in State 2.
-Actions:
+
+\paragraph{Actions:}
 \begin{itemize}
   \item Asks the user if they would like to call a human staff member.
   \item Performs \emph{Speech Recognition} and checks if the answer is positive or negative.
 \end{itemize}
-Transitions:
+
+\paragraph{Transitions:}
 \begin{itemize}
   \item If \emph{yes}, \emph{nod head} and proceed to \textbf{State 4}.
   \item If \emph{no}, \emph{shake head} and return to \textbf{State 0}.
@@ -198,14 +213,17 @@ Transitions:
 \end{figure}
 
 \subsubsection{State 4}
-Entry Condition:
+\paragraph{Entry Condition:}
+\mbox{}\\
 Indicates the system must notify staff (arrived from State 2 or State 3).
-Actions:
+
+\paragraph{Actions:}
 \begin{itemize}
   \item Performs \emph{Action: Computer Glance}, then sends an email to the specified staff member.
   \item Announces that staff has been notified.
 \end{itemize}
-Transitions:
+
+\paragraph{Transitions:}
 \begin{itemize}
   \item Moves on to \textbf{State 5} after notifying staff and confirming the message was sent.
 \end{itemize}
@@ -218,9 +236,11 @@ Transitions:
 \end{figure}
 
 \subsubsection{State 5}
-Entry Condition:
+\paragraph{Entry Condition:}
+\mbox{}\\
 Staff have been notified that a visitor is waiting.
-Actions:
+
+\paragraph{Actions:}
 \begin{itemize}
   \item Informs the user that staff will arrive soon.
   \item Asks the user to rate their experience, capturing input via \emph{Speech Recognition}.
@@ -228,7 +248,8 @@ Actions:
   \item Thanks the user for their feedback.
   \item Monitors for any change in faces to detect if staff has arrived.
 \end{itemize}
-Transitions:
+
+\paragraph{Transitions:}
 \begin{itemize}
   \item If the staff’s face is now recognized, the system \emph{waves} and returns to \textbf{State 0}, ready for the next interaction cycle.
 \end{itemize}
@@ -313,8 +334,10 @@ The project employs external webcamera vision system for hand gesture detection 
 
 \subsubsection{Interaction Diagram}
 
-\begin{center}
-\begin{tikzpicture}[node distance=2.5cm, auto, >=Latex]
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\columnwidth}{!}{
+\begin{tikzpicture}[node distance=1.8cm, auto, >=Latex]
   % Nodes
   \node[rectangle, draw, fill=blue!20] (server) {SimpleServer};
   \node[rectangle, draw, fill=green!20, below left=of server] (detectWave) {detectWave()};
@@ -323,30 +346,15 @@ The project employs external webcamera vision system for hand gesture detection 
   \node[rectangle, draw, fill=yellow!20, below=of handleClient] (sentiment) {Sentiment Analysis};
 
   % Arrows
-  \draw[->] (server) -- node[midway, above] {sends signals} (detectWave);
-  \draw[->] (server) -- node[midway, above] {receives data} (handleClient);
+  \draw[->] (server) -- node[midway, above, sloped] {sends signals} (detectWave);
+  \draw[->] (server) -- node[midway, above, sloped] {receives data} (handleClient);
   \draw[->] (detectWave) -- node[midway, left] {processes video} (mediapipe);
   \draw[->] (handleClient) -- node[midway, right] {analyzes text} (sentiment);
 \end{tikzpicture}
-\end{center}
-
-\subsubsection{UML Class Sketch}
-
-\begin{verbatim}
-+------------------------+
-|      SimpleServer      |
-+------------------------+
-| - host: str            |
-| - port: int            |
-| - server_socket        |
-| - client_socket        |
-| - lock: Lock           |
-+------------------------+
-| + start_server()       |
-| + accept_connections() |
-| + send_signal(msg)     |
-+------------------------+
-\end{verbatim}
+}
+\caption{System interaction flow diagram showing main components and their relationships}
+\label{fig:interaction-diagram}
+\end{figure}
 
 \subsubsection{System Workflow}
 

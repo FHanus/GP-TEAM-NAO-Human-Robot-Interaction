@@ -3,6 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{url} % Required for proper URL formatting in references
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta}
 
@@ -87,6 +89,17 @@ Assumptions:
 \end{itemize}
 
 \section{Technical Implementation}
+
+Below is the technical implementation of the project, starting with the high level description of the state machine with the final state diagram. This is then
+followed by the more deliberate description of the states and the transitions between them. The sentences spoken by the robot are then detailed,
+followed by the code overview. 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.9\linewidth]{Final state diagram.png}
+  \caption{Final state diagram}
+  \label{Final state diagram}
+\end{figure}
 
 \subsection{State Machine Description}
 
@@ -462,7 +475,7 @@ To conclude, our solution is using robot NAO to act as a receptionist, focused i
 
 System improvements have been identified, aiming to add to the modalities the robot can recognise from the user as well as make the system more robust against less structured human inputs. These would need to be implemented first before the robot could be considered ready for real-world deployment.
 
-\bibliographystyle{plain}
+\bibliographystyle{agsm}
 \bibliography{references}
 
 \end{document}

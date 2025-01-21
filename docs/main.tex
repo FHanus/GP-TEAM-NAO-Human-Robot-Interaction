@@ -349,7 +349,7 @@ The project employs external webcamera vision system for hand gesture detection 
   \draw[->] (server) -- node[midway, above, sloped] {sends signals} (detectWave);
   \draw[->] (server) -- node[midway, above, sloped] {receives data} (handleClient);
   \draw[->] (detectWave) -- node[midway, left] {processes video} (mediapipe);
-  \draw[->] (handleClient) -- node[midway, right] {analyzes text} (sentiment);
+  \draw[->] (handleClient) -- node[midway, right] {analyses text} (sentiment);
 \end{tikzpicture}
 }
 \caption{System interaction flow diagram showing main components and their relationships}

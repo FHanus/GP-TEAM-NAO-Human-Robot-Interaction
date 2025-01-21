@@ -3,6 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
 
 \begin{document}
 
@@ -18,7 +20,7 @@
 }
 \IEEEauthorblockA{
         \IEEEauthorrefmark{1}School of Engineering, College of Art, Technology and Environment,\\ University of the West of England, Bristol, UK\\
-        Email: \{diana2.milligan, filip2.hanus, harry4.williams, jack2.ould, wing7.leung\}@live.uwe.ac.uk}
+        Email: diana2.milligan, filip2.hanus, harry4.williams, jack2.ould, wing7.leung\}@live.uwe.ac.uk}
 }
 
 \maketitle
@@ -84,63 +86,276 @@ Assumptions:
 
 \section{Distribution of Work} This project has been equally distributed to and completed by the authors of this report.
 
-\section{Literature Review}
+\section{Technical Implementation}
 
-TBD
+\subsection{State Machine Description}
 
-\section{Design and Methodology}
+\subsubsection{System Start}
+Entry Condition:
+The robot/system is powered on or reset. This is the initial state.
+Actions:
+\begin{itemize}
+  \item Immediately triggers \textbf{Face Detection}, looking for any faces in view.
+  \item Checks whether the \emph{number of faces} has changed (i.e., a new face appears).
+  \item If a new face is detected, the system attempts to \emph{Learn face (employee)}. If learning is successful, it proceeds with a \emph{Success message}; if unsuccessful, it gives a \emph{Failure message}.
+\end{itemize}
+Transitions:
+\begin{itemize}
+  \item Both the \emph{success} and \emph{failure} learning branches eventually converge and transition to \textbf{State 0}. This is in order to prevent getting stuck due to NAO's technical problems.
+\end{itemize}
 
-The NAO-based receptionist system was designed with two main objectives:
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{Startup Initialisation.jpg}
+    \caption{Startup Initialisation}
+    \label{Startup Initialisation}
+\end{figure}
+
+\subsubsection{State 0}
+Entry Condition:
+The machine enters this state after finishing the initial face-detection/learning process.
+Actions:
+\begin{itemize}
+  \item Continuously \emph{reads webcam input}.
+  \item Monitors for a \emph{wave} via MediaPipe.
+\end{itemize}
+Transitions:
+\begin{itemize}
+  \item If a wave is detected, perform \emph{Action: Wave back} and move to \textbf{State 1}.
+  \item If no wave is detected, remain in \textbf{State 0} and continue monitoring.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{State 0 - Client Initialisation.jpg}
+    \caption{State 0 - Client Initialisation}
+    \label{State 0 - Client Initialisation}
+\end{figure}
+
+\subsubsection{State 1}
+Entry Condition:
+A wave has been detected in \textbf{State 0}, triggering the move here (``Client Appointment Initialisation'').
+Actions:
+\begin{itemize}
+  \item Asks the user if they have an appointment.
+  \item Performs \emph{Speech Recognition} to capture their answer.
+  \item Checks if the answer is ``yes'' or ``no''.
+\end{itemize}
+Transitions:
+\begin{itemize}
+  \item If \emph{yes}, transition to \textbf{State 2} (handle appointment details).
+  \item If \emph{no}, transition to \textbf{State 3} (offer human assistance).
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{State 1 - Appointment Initialisation.jpg}
+    \caption{State 1 - Appointment Initialisation}
+    \label{State 1 - Appointment Initialisation}
+\end{figure}
+
+\subsubsection{State 2}
+Entry Condition:
+User has indicated they do have an appointment.
+Actions:
+\begin{itemize}
+  \item Prompts for the name of the staff member or the confirmation number.
+  \item Uses \emph{Speech Recognition}, then checks if the provided information is found in the database.
+  \item Keeps track of the number of failed attempts.
+\end{itemize}
+Transitions:
+\begin{itemize}
+  \item If the name or confirmation number is valid, \emph{nod head} and transition to \textbf{State 4} (staff notification).
+  \item If it is invalid, increment the failure count. If failures exceed 2, \emph{shake head} and move to \textbf{State 3}.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{State 2 - Appointment Database Search.jpg}
+    \caption{State 2 - Appointment Database Search}
+    \label{State 2 - Appointment Database Search}
+\end{figure}
+
+\subsubsection{State 3}
+Entry Condition:
+Either the user said they have no appointment (from State 1) or they exceeded failures in State 2.
+Actions:
+\begin{itemize}
+  \item Asks the user if they would like to call a human staff member.
+  \item Performs \emph{Speech Recognition} and checks if the answer is positive or negative.
+\end{itemize}
+Transitions:
+\begin{itemize}
+  \item If \emph{yes}, \emph{nod head} and proceed to \textbf{State 4}.
+  \item If \emph{no}, \emph{shake head} and return to \textbf{State 0}.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{State 3 - Help State.jpg}
+    \caption{State 3 - Help State}
+    \label{State 3 - Help State}
+\end{figure}
+
+\subsubsection{State 4}
+Entry Condition:
+Indicates the system must notify staff (arrived from State 2 or State 3).
+Actions:
+\begin{itemize}
+  \item Performs \emph{Action: Computer Glance}, then sends an email to the specified staff member.
+  \item Announces that staff has been notified.
+\end{itemize}
+Transitions:
+\begin{itemize}
+  \item Moves on to \textbf{State 5} after notifying staff and confirming the message was sent.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{State 4 - Staff Notification.jpg}
+    \caption{State 4 - Staff Notification}
+    \label{State 4 - Staff Notification}
+\end{figure}
+
+\subsubsection{State 5}
+Entry Condition:
+Staff have been notified that a visitor is waiting.
+Actions:
+\begin{itemize}
+  \item Informs the user that staff will arrive soon.
+  \item Asks the user to rate their experience, capturing input via \emph{Speech Recognition}.
+  \item Runs \emph{Sentiment Analysis} to interpret the feedback.
+  \item Thanks the user for their feedback.
+  \item Monitors for any change in faces to detect if staff has arrived.
+\end{itemize}
+Transitions:
+\begin{itemize}
+  \item If the staff’s face is now recognized, the system \emph{waves} and returns to \textbf{State 0}, ready for the next interaction cycle.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.6\linewidth]{State 5 - Staff Notification.jpg}
+    \caption{State 5 - Staff Notification}
+    \label{State 5 - Staff Notification}
+\end{figure}
+
+
+\subsection{Sentences Spoken by the Robot}
+
+The robot has several states (\textbf{State 0} to \textbf{State 5}), each with characteristic announcements or prompts. Below are samples of the main utterances (also visible in the previous subsection):
+
+\begin{itemize}
+  \item \textbf{State 1}:
+    \begin{itemize}
+      \item \texttt{``Hi, my name is Gordon, do you have an appointment?''} \\
+    \end{itemize}
+
+  \item \textbf{State 2}:
+    \begin{itemize}
+      \item \texttt{``Who do you have an appointment with?''} \\
+            Prompts for the staff member’s name.
+      \item \texttt{``May I ask for your confirmation number?''}
+      \item \texttt{``Sorry, didn't catch that''} \\
+            If speech recognition is unclear or fails.
+      \item \texttt{``I've got you''} \\
+            If a matching name/number was found.
+      \item \texttt{``That is not in our database''} \\
+            If no match is found for either the name or number.
+    \end{itemize}
+
+  \item \textbf{State 3}:
+    \begin{itemize}
+      \item \texttt{``Do you want to call a human?''}
+    \end{itemize}
+
+  \item \textbf{State 4}:
+    \begin{itemize}
+      \item \texttt{``I have sent an email to the member of staff.''} \\
+    \end{itemize}
+
+  \item \textbf{State 5}:
+    \begin{itemize}
+      \item Additional prompts about staff arrival and requesting user feedback.
+    \end{itemize}
+\end{itemize}
+
+
+
+\subsection{Code Overview}
+
+The project employs external webcamera vision system for hand gesture detection (wave detection, rude gestures from angry customers), integrating OpenCV and MediaPipe.
+
+\subsubsection{Main Components}
+\begin{itemize}
+  \item \textbf{SimpleServer Class:} 
+    \begin{itemize}
+      \item Handles TCP socket communication, accepting client connections and sending messages.
+      \item Manages concurrency using threads and locks to ensure safe communication between the robot and external clients.
+    \end{itemize}
+  \item \textbf{\texttt{detectWave} Function:} 
+    \begin{itemize}
+      \item Utilises OpenCV to capture video frames and MediaPipe to process hand landmarks.
+      \item Detects waving gestures and rude gestures based on the relative positions of hand landmarks.
+      \item Sends corresponding signals (e.g., ``Wave'', ``Rude'') to the connected client (NAO) via the server.
+    \end{itemize}
+  \item \textbf{\texttt{handle\_client} Function:} 
+    \begin{itemize}
+      \item Receives text input from the client socket.
+      \item Analyses the sentiment of the received text using NLTK's VADER SentimentIntensityAnalyzer.
+      \item Sends back a sentiment response (Positive/Negative/Neutral) to the client.
+    \end{itemize}
+  \item \textbf{\texttt{image\_processing} Function:} 
+    \begin{itemize}
+      \item Preprocesses video frames by flipping and converting color spaces for MediaPipe processing.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Interaction Diagram}
+
+\begin{center}
+\begin{tikzpicture}[node distance=2.5cm, auto, >=Latex]
+  % Nodes
+  \node[rectangle, draw, fill=blue!20] (server) {SimpleServer};
+  \node[rectangle, draw, fill=green!20, below left=of server] (detectWave) {detectWave()};
+  \node[rectangle, draw, fill=green!20, below right=of server] (handleClient) {handle\_client()};
+  \node[rectangle, draw, fill=yellow!20, below=of detectWave] (mediapipe) {MediaPipe Processing};
+  \node[rectangle, draw, fill=yellow!20, below=of handleClient] (sentiment) {Sentiment Analysis};
+
+  % Arrows
+  \draw[->] (server) -- node[midway, above] {sends signals} (detectWave);
+  \draw[->] (server) -- node[midway, above] {receives data} (handleClient);
+  \draw[->] (detectWave) -- node[midway, left] {processes video} (mediapipe);
+  \draw[->] (handleClient) -- node[midway, right] {analyzes text} (sentiment);
+\end{tikzpicture}
+\end{center}
+
+\subsubsection{UML Class Sketch}
+
+\begin{verbatim}
++------------------------+
+|      SimpleServer      |
++------------------------+
+| - host: str            |
+| - port: int            |
+| - server_socket        |
+| - client_socket        |
+| - lock: Lock           |
++------------------------+
+| + start_server()       |
+| + accept_connections() |
+| + send_signal(msg)     |
++------------------------+
+\end{verbatim}
+
+\subsubsection{System Workflow}
+
 \begin{enumerate}
-        \item Streamlining patient check-in and
-        \item Maintaining user trust and engagement.
+  \item \textbf{Initialization:} The main program creates a \texttt{SimpleServer} instance, waiting for a client connection.
+  \item \textbf{Wave Detection Loop:} Once connected, the system enters a loop calling \texttt{detectWave()}, processing camera frames to detect gestures.
+  \item \textbf{Signal Communication:} Upon detecting a gesture, \texttt{detectWave()} spawns a thread to send the appropriate signal (e.g., "Wave", "Rude") via the server.
+  \item \textbf{Client Handling:} Simultaneously, \texttt{handle\_client()} listens for incoming text data from the client, processes sentiment, and sends back a response.
 \end{enumerate}
-
-\begin{figure*}
-        \centering
-        \includegraphics[width=.6\linewidth]{states.jpg}
-        \caption{Different States and their Connections}
-        \label{Different states}
-\end{figure*}
-
-\subsection{Overview of System States} Figure~\ref{Different states} illustrates our finite state machine, implemented
-using Aldebaran’s Choregraphe and Python scripts:
-
-\begin{enumerate} \item \textbf{Face Detection (State 0):} NAO scans staff members’ faces and stores in database. After completion, state 1 is triggered.
-        \item \textbf{Wave Detection (State 1):} A MediaPipe-based script running in Python continuously scans for a waving hand signal. Upon detection, the system triggers state 2. 
-        \item \textbf{Verbal Interaction (State 2):} NAO initiates a spoken dialogue to ask for appointment details. It uses inbuilt speech recognition configured for British English. If the user does not wish to proceed, the system will revert to state 1, ready for the next user. If the user successfully checks in, or they wish to speak to staff, state 3 will be triggered.
-        \item \textbf{Email Notification (State 3):} NAO sends an automated email to the relevant staff member. To circumvent network restrictions on SMTP, local testing used a laptop-based hotspot.
-        \item \textbf{Feedback Collection (State 4):} NAO requests a brief rating from the user, storing any comments for later review. Once completed, the system returns to state 1.
-\end{enumerate}
-
-\subsection{Hardware and Software Setup} Choregraphe runs on a laptop that communicates with the NAO robot over Wi-Fi.
-For gestures, a laptop-mounted camera and a Python-based MediaPipe module detect and interpret waving motions.
-When network blocks occurred (e.g.\ institutional firewalls), connections were redirected through a personal hotspot to ensure uninterrupted email functionality.
-
-\subsection{Dialogue Capabilities} Choregraphe boxes were primarily used to facilitate dialogue capabilities. Edited \textit{Say} boxes were added to Choregraphe’s \textit{Flow Diagram Panel}, and contained sentences that NAO would say to interact with the user via in-built text-to-speech (TTS) technology. As communication between boxes is event-based, \textit{Say} boxes are triggered onStart and I/O set as “bang”. Naturally, NAO asks the user questions to locate their appointment; therefore, \textit{Say} boxes are primarily followed by Speech Reco. boxes to understand the user’s verbal response. These use an in-built speech-to-text (STT) technology. Each \textit{Speech Reco.} box contains a word list as part of its parameters, these are now words that NAO recognises, and, by utilising a switch case, can respond accordingly to what the user said. \textit{Speech Reco.} boxes have input set to “bang”, output on word recognition set to “string”, and confidence threshold was adjusted to 45% (figure determined during testing). If the confidence threshold was not met, NAO does not recognise the word and will explore contingencies.
-
-A Natural Language Processing (NLP) sentiment detection script was designed but could not be implemented due to integration issues with the NAO robot. This script would have been used for both user inputs and NAO’s verbal outputs. 
-
-\subsection{Person Tracking}
-Person tracking capabilities of the NAO receptionist included:
-\begin{enumerate}
-        \item Face detection and
-        \item Wave detection
-\end{enumerate}
-
-Face detection was used to detect staff members’ faces and stored on the server database. This facilitated NAO’s capability of announcing the staff’s arrival when they greet the user. Face detection was created using MediaPipe.
-
-Wave detection was implemented to trigger NAO’s verbal interaction with the user. A wave was chosen as a common emblematic non-verbal communication gesture and prevents NAO being active by passersby.  To prompt the user, a sign was placed in front of NAO saying, ‘Wave to speak with the receptionist.’ Wave detection used MediaPipe, specifically using the hand landmark and gesture classification models. 
-
-\subsection{Email Integration} To meet the requirement of the NAO robot being used as a receptionist, a simple email script was designed to run locally on the NAO hardware using a simple mail transfer protocol (SMTP).
-
-\subsection{Code Overview} During the design process, the code was written in Visual Studio (VS) with version control via GitHub, facilitating unit testing in a controlled environment. Once the code was verified and validated, it was integrated into Choregraphe nodes and further tested on a virtual NAO. 
-
-The code was separated across a server and a client. More computationally expensive functions run on the server, whereas simple functions, critical to core functionality, run on NAO. These communicated via a socket framework.
-
-Running gesture recognition and sentiment detection on a server allows deep learning algorithms to benefit from the computing power of the server. This is critical for successful real-time interactions. The server also utilises frameworks that do not integrate well with Python 2 (e.g.  MediaPipe and VADER). Additionally, having these features hosted on a server, multiple NAO robots can utilise these tools and could be extremely useful for clients wishing to purchase and use multiple reception robots.
-
-The remaining code, including TTS, STT, and email functions, runs locally on NAO. It uses minimal computing power and can easily be run in real-time on NAO’s hardware.
 
 \subsection{GitHub} A shared GitHub housed README files, NAO scripts, and LaTeX documentation for report writing. Branches broke down project tasks and features, whilst version control assisted with project collaboration and testing. See Appendix for supporting GitHub documentation.
 

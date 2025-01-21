@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------------#
 # By Emanuel Nunez and Edward White
-# Edited by Harry Williams for open hand detection
+# Edited by Harry Williams for open hand detection & Natural language.
 # Version 2
 #----------------------------------------------------------------------------------#
 
@@ -104,7 +104,7 @@ def detectWave():
                         if index_tip.y > middle_DIP.y and ring_tip.y > middle_DIP.y and pinky_tip.y > middle_DIP.y:
                             debounce_rude += 1
                             debounce_wave = 0
-                            if debounce_rude == 5:
+                            if debounce_rude == 10:
                                 debounce_rude = 0
                                 print("Rude")
                                 signal_thread = Thread(target=server.send_signal, args=("Rude",))
@@ -115,7 +115,7 @@ def detectWave():
                         else:
                             debounce_wave += 1
                             debounce_rude = 0
-                            if debounce_wave == 5:
+                            if debounce_wave == 10:
                                 debounce_wave = 0
                                 print("Wave")
                                 signal_thread = Thread(target=server.send_signal, args=("Wave",))
@@ -181,6 +181,5 @@ if __name__ == "__main__":
     while server.client_socket is None:
         time.sleep(1)  # Wait for the client to connect
     while state == 2:
-        text = server.client_socket.recv(1024).decode('utf-8')
         print(state)
         handle_client()
